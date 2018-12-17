@@ -1,0 +1,86 @@
+import java.util.Scanner;
+
+public class Lab08
+{
+public static void main (String args[])
+    {
+      Scanner input = new Scanner(System.in);
+        boolean notFinished = false;
+        do
+        {
+            System.out.print("Enter a string  ===>>  ");
+            String str = input.nextLine();
+            System.out.println();
+            System.out.println("Entered String:     " + str);
+            System.out.println("Palindrome:         " + Palindrome.isPal(str));
+            System.out.println("Almost Palindrome:  " + Palindrome.almostPal(str));  
+            System.out.print("Do you wish to repeat this program [Y/N]?  ===>>  ");
+            String repeat = input.nextLine();
+            notFinished = (repeat.equals("Y")) || (repeat.equals("y"));
+            System.out.println();
+        }
+        while (notFinished);
+    }
+}
+
+class Palindrome
+{
+    /*
+     * Precondition:  s is an arbitrary String.
+     * Postcondition: The value of true is returned if s is a Palindrome, false otherwise.
+     */
+    public static boolean isPal(String s)
+    {
+      String word = "";
+      for(int k = s.length(); k >0; k--)
+      {
+          word += s.substring(k-1,k);
+          } 
+      return s.equals(word);
+       
+    }  
+   
+   /*
+     * Precondition:  s is a String of one character.
+     * Postcondition: The value of true is returned if s is a letter and false otherwise.
+    */
+   private static boolean isLetter(String letter)
+   {
+        letter = letter.toUpperCase(); 
+        int compared = letter.compareTo("A");
+        return compared>=0 && compared<= 25;
+   }
+   
+    /*
+     * Precondition:  s is an arbitrary String.
+     * Postcondition: All non-letter characters are removed from s, and this "purged" String is returned.
+   */
+    private static String purge(String s)
+    {
+       
+        String purged = "";
+        
+        for(int k = 0; k < s.length(); k++){
+           if (isLetter(s.substring(k, k+1))){
+               purged += s.substring(k, k+1); 
+            }
+        }
+        return purged;
+    }
+      
+    
+   
+   /*
+     * Precondition:  s is an arbitrary String.
+     * Postcondition: After purging all non-letter characters from s,
+     *                the value of true is returned if the resulting String is a Palindrome, false otherwise.
+     */
+    public static boolean almostPal(String s)
+    {
+       
+        return s.equals(purge(s));
+        
+        
+    }
+
+}
